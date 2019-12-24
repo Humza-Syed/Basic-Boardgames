@@ -5,13 +5,15 @@
 
 #define MAX_PLAYERS 2
 
-#define STATUS {CONTINUE,OVER};
-#define enum gameStatus
+enum STATUS {CONTINUE,OVER};
+enum STATUS gameStatus;
 
  struct player{
     char player_name[20];
     int score;
 };
 
-int number_of_games();
+void play_tic_tac_toe(struct player players[]);
+int set_number_of_games();
+
 struct player initialise_players(struct player players[]);

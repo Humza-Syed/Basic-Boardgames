@@ -1,13 +1,24 @@
 #include "tic_tac_toe.h"
-#include "..\universal_definitions.h"
+
 
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 
-void play_tic_tac_toe(){
+void play_tic_tac_toe(struct player players[]){
     char board[BOARD_SIZE][BOARD_SIZE];
-    initialise_board(board);
-    print_board(board);
+    int number_of_games = set_number_of_games();
+    int games_played = 0;
+    gameStatus = CONTINUE;
+
+    while(games_played < number_of_games){
+        while(gameStatus == CONTINUE){
+            initialise_board(board);
+            print_board(board);
+        }
+        games_played++;
+    }
+
 }
 
 void initialise_board(char board[][BOARD_SIZE]){
@@ -26,4 +37,11 @@ void print_board(char board[][3]){
        }
        printf("\n");
    }
+}
+
+int set_number_of_games(){
+    int number_of_games;
+    printf("Please enter the number of games you wish to play\n");
+    scanf("%d",&number_of_games);
+    return number_of_games;
 }

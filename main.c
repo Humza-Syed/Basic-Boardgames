@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "TicTacToe/tic_tac_toe.h"
 #include "universal_definitions.h"
 
 int main() {
@@ -23,7 +22,7 @@ int main() {
     switch(desired_game){
         case(1) :
             printf("Player wants to play:  \"Tic-Tac-Toe\"\n");
-            play_tic_tac_toe();
+            play_tic_tac_toe(players);
             break;
         case(2) :
             printf("Player wants to play: \"Connect 4 \"\n");
