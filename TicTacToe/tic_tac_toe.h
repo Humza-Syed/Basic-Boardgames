@@ -7,3 +7,4 @@
 void play_tic_tac_toe();
 void initialise_board(char board[][BOARD_SIZE]);
 void print_board(char board[][BOARD_SIZE]);
+void move(int x,int j);

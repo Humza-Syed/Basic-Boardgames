@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 void play_tic_tac_toe(){
-    char board[BOARD_SIZE][BOARD_SIZE] = {"-"};
+    char board[BOARD_SIZE][BOARD_SIZE];
     initialise_board(board);
     print_board(board);
 }
@@ -17,6 +17,7 @@ void initialise_board(char board[][BOARD_SIZE]){
        }
    }
 }
+
 void print_board(char board[][3]){
    for(int i = 0;i < BOARD_SIZE;i++){
        printf("|");
