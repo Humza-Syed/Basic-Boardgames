@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "TicTacToe/tic_tac_toe.h"
 #include "universal_definitions.h"
@@ -35,8 +36,9 @@ int main() {
 
 struct player initialise_players(struct player players[]){
     for(int i = 0;i < MAX_PLAYERS;i++){
-        printf("Please enter the name for player 1\n");
+        printf("Please enter the name for player %d\n",i);
         fgets(players[i].player_name,20,stdin);
+        players[i].player_name[strcspn( players[i].player_name,"\n")] = 0;
         players[i].score = 0;
     }
 }

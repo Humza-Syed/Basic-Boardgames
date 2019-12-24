@@ -8,7 +8,7 @@
 #define STATUS {CONTINUE,OVER};
 #define enum gameStatus
 
-typedef struct player{
+ struct player{
     char player_name[20];
     int score;
 };
