@@ -1,12 +1,11 @@
 #include "tic_tac_toe.h"
 
 void play_tic_tac_toe(struct player players[]){
-    char board[BOARD_SIZE][BOARD_SIZE];
+    char board[BOARD_DIMENSION][BOARD_DIMENSION];
     char play_type[] = {'X','O'};
     int number_of_games = set_number_of_games();
     int games_played = 0;
-
-    gameStatus = CONTINUE;
+    int number_of_moves_made = 0;
 
     int players_turn = select_side(players);
     if(players_turn == 1){
@@ -15,9 +14,14 @@ void play_tic_tac_toe(struct player players[]){
 
     while(games_played < number_of_games){
         initialise_board(board);
+        gameStatus = CONTINUE;
         while(gameStatus == CONTINUE){
             print_board(board);
-            make_move(board,players_turn);
+            gameStatus = make_move(board,play_type[players_turn],&number_of_moves_made);
+            if(players_turn == 1)
+                players_turn = 0;
+            else
+                players_turn = 1;
         }
         games_played++;
     }
@@ -47,26 +51,69 @@ int select_side(struct player players[]){
     return --decision;
 }
 
-void initialise_board(char board[][BOARD_SIZE]){
-   for(int i = 0;i < BOARD_SIZE;i++){
-       for(int j = 0;j < BOARD_SIZE;j++){
+void initialise_board(char board[][BOARD_DIMENSION]){
+   for(int i = 0; i < BOARD_DIMENSION; i++){
+       for(int j = 0; j < BOARD_DIMENSION; j++){
             board[i][j] = '-';
        }
    }
 }
 
 void print_board(char board[][3]){
-   for(int i = 0;i < BOARD_SIZE;i++){
+   for(int i = 0; i < BOARD_DIMENSION; i++){
        printf("|");
-       for(int j = 0;j < BOARD_SIZE;j++){
+       for(int j = 0; j < BOARD_DIMENSION; j++){
            printf(" %c |",board[i][j]);
        }
        printf("\n");
    }
 }
 
-void make_move(char board[][BOARD_SIZE], int which_player){
+enum STATUS make_move(char board[][BOARD_DIMENSION], char player_type,int* number_of_moves_made){
+    int x = -1,y = -1;
+    char user_input;
+    do{
+        while(x < 0 || x > 2){
+            printf("Please enter x co-ordinate that you want to play\n");
+            scanf("%c",&user_input);
+            fflush(stdin);
+            x = strtol(&user_input,NULL,10);
+            x--;
+        }
+        while(y < 0 || y > 2){
+            printf("Please enter y co-ordinate that you want to play\n");
+            scanf("%c",&user_input);
+            fflush(stdin);
+            y = strtol(&user_input,NULL,10);
+            y--;
+        }
+    }while(!is_valid_move(&x,&y,board));
 
+    board[x][y] = player_type;
+    *number_of_moves_made = *number_of_moves_made + 1;
+
+    if(*number_of_moves_made > ((BOARD_SIZE/2) + 1)){
+        if(game_is_won(board))
+            return OVER;
+        else
+            return CONTINUE;
+    }else
+        return CONTINUE;
+
+}
+
+bool is_valid_move(int* x,int* y,char board[][BOARD_DIMENSION]){
+    if(board[*x][*y] == '-')
+        return true;
+
+    *x = -1;
+    *y = -1;
+    printf("Please enter a valid move\n");
+    return false;
+}
+
+bool game_is_won(char board[][BOARD_DIMENSION]){
+    return false;
 }
 
 void swap_type_array(char type_array[]){
