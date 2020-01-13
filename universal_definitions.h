@@ -14,6 +14,7 @@ enum STATUS gameStatus;
 };
 
 void play_tic_tac_toe(struct player players[]);
+void play_connect_4(struct player players[]);
 int set_number_of_games();
 
 struct player initialise_players(struct player players[]);
