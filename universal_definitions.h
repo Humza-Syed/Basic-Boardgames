@@ -5,7 +5,7 @@
 
 #define MAX_PLAYERS 2
 
-enum STATUS {CONTINUE,OVER};
+enum STATUS {CONTINUE,WON,DRAW};
 enum STATUS gameStatus;
 
  struct player{
