@@ -25,6 +25,8 @@ int main() {
             case(1) :
                 printf("Player wants to play:  \"Tic-Tac-Toe\"\n");
                 play_tic_tac_toe(players);
+                printf("Scores after playing: Tic-tac-toe\n"
+                       "%s %d - %d %s\n",players[0].player_name,players[0].score,players[1].score,players[1].player_name);
                 break;
             case(2) :
                 printf("Player wants to play: \"Connect 4 \"\n");
