@@ -3,6 +3,7 @@
 void play_tic_tac_toe(struct player players[]){
     char board[BOARD_DIMENSION][BOARD_DIMENSION];
     char play_type[] = {'X','O'};
+    int player_scores[2] = {0,0};
     int number_of_games = set_number_of_games();
     int games_played = 0;
     int number_of_moves_made = 0;
@@ -31,10 +32,14 @@ void play_tic_tac_toe(struct player players[]){
 int set_number_of_games(){
     int number_of_games;
     char input;
-    printf("Please enter the number of games you wish to play\n");
-    fgets(&input,2,stdin);
-    fflush(stdin);
-    number_of_games = strtol(&input,NULL,10);
+    printf("Please enter the set number of games you wish to play (best of n series)\n");
+    do{
+        fgets(&input,2,stdin);
+        fflush(stdin);
+        number_of_games = strtol(&input,NULL,10);
+        if(number_of_games % 2 == 0)
+            printf("Please enter an odd number of games\n");
+    }while(number_of_games % 2 == 0);
     return number_of_games;
 }
 
