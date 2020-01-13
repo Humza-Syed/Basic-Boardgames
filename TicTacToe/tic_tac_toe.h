@@ -21,4 +21,4 @@ int select_side(struct player players[]);
 void swap_sides();
 void swap_type_array(char type_array[]);
 bool is_valid_move(int* x,int* y,char board[][BOARD_DIMENSION]);
-bool game_is_won(char board[][BOARD_DIMENSION]);
+bool game_is_won(char board[][BOARD_DIMENSION], int x, int y);

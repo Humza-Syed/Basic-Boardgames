@@ -16,6 +16,7 @@ void play_tic_tac_toe(struct player players[]){
     while(games_played < number_of_games){
         initialise_board(board);
         gameStatus = CONTINUE;
+        printf("Game %d\n_____________\n",games_played++);
         while(gameStatus == CONTINUE){
             print_board(board);
             gameStatus = make_move(board,play_type[players_turn],&number_of_moves_made);
@@ -24,6 +25,7 @@ void play_tic_tac_toe(struct player players[]){
             else
                 players_turn = 1;
         }
+        printf("Game has been won\n");
         games_played++;
     }
 
@@ -97,8 +99,8 @@ enum STATUS make_move(char board[][BOARD_DIMENSION], char player_type,int* numbe
     board[x][y] = player_type;
     *number_of_moves_made = *number_of_moves_made + 1;
 
-    if(*number_of_moves_made > ((BOARD_SIZE/2) + 1)){
-        if(game_is_won(board))
+    if(*number_of_moves_made > (BOARD_SIZE/2)){
+        if(game_is_won(board,x,y))
             return OVER;
         else
             return CONTINUE;
@@ -117,7 +119,19 @@ bool is_valid_move(int* x,int* y,char board[][BOARD_DIMENSION]){
     return false;
 }
 
-bool game_is_won(char board[][BOARD_DIMENSION]){
+bool game_is_won(char board[][BOARD_DIMENSION], int x, int y){
+    if(board[x][0] == board[x][1] == board[x][2])
+        return true;
+    else if(board[0][y] == board[1][y] && board[2][y])
+        return true;
+    else if(x == y){
+        //Check diagonals
+        if(board[0][0] != '-' && board[0][0] == board[1][1] && board[2][2])
+            return true;
+        else if(board[0][2] != '-' && board[0][2] == board[1][1] && board[2][0])
+            return true;
+    }
+
     return false;
 }
 
