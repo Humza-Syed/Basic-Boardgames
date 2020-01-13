@@ -19,6 +19,7 @@ void play_tic_tac_toe(struct player players[]){
         printf("Game %d\n_____________\n",games_played++);
         printf("%s (%c) %d-%d %s (%c)\n",players[0].player_name,play_type[0],player_scores[0],player_scores[1],players[1].player_name,play_type[1]);
         print_board(board);
+
         while(gameStatus == CONTINUE){
             gameStatus = make_move(board,play_type[players_turn],&number_of_moves_made);
             if(players_turn == 1)
@@ -26,6 +27,7 @@ void play_tic_tac_toe(struct player players[]){
             else
                 players_turn = 1;
         }
+
         printf("Game has been won\n");
         number_of_moves_made = 0;
         if(gameStatus == WON){
@@ -36,17 +38,26 @@ void play_tic_tac_toe(struct player players[]){
         }
         games_played++;
 
-        if(player_scores[0] > number_of_games/2){
-            printf("Series has been won by player %s\n%s %d-%d %s",players[0].player_name,players[0].player_name,player_scores[0],player_scores[1],players[1].player_name);
-            players[0].score++;
+        if((player_scores[0]  || player_scores[1]) > number_of_games/2)
             break;
-        }else if(player_scores[1] > number_of_games/2){
-            printf("Series has been won by player %s\n%s %d-%d %s",players[1].player_name,players[0].player_name,player_scores[0],player_scores[1],players[1].player_name);
-            players[1].score++;
-            break;
-        }else{
+        else{
             swap_type_array(play_type);
+            if(play_type[0] == 'X')
+                players_turn = 0;
+            else
+                players_turn = 1;
         }
+
+    }
+
+    if(player_scores[0] > player_scores[1]){
+        printf("Series has been won by player %s\n%s %d-%d %s\n",players[0].player_name,players[0].player_name,player_scores[0],player_scores[1],players[1].player_name);
+        players[0].score++;
+    }else if(player_scores[0] < player_scores[1]){
+        printf("Series has been won by player %s\n%s %d-%d %s\n",players[0].player_name,players[0].player_name,player_scores[0],player_scores[1],players[1].player_name);
+        players[1].score++;
+    }else{
+        printf("Series was a draw\n");
     }
 
 }
