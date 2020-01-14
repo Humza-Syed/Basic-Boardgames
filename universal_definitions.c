@@ -17,3 +17,17 @@ void print_board(char **board, int rows, int columns){
         printf("\n");
     }
 }
+
+int set_number_of_games(){
+    int number_of_games;
+    char input;
+    printf("Please enter the set number of games you wish to play (best of n series)\n");
+    do{
+        fgets(&input,2,stdin);
+        fflush(stdin);
+        number_of_games = strtol(&input,NULL,10);
+        if(number_of_games % 2 == 0)
+            printf("Please enter an odd number of games\n");
+    }while(number_of_games % 2 == 0);
+    return number_of_games;
+}

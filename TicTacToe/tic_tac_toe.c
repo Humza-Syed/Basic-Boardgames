@@ -62,20 +62,6 @@ void play_tic_tac_toe(struct player players[]){
 
 }
 
-int set_number_of_games(){
-    int number_of_games;
-    char input;
-    printf("Please enter the set number of games you wish to play (best of n series)\n");
-    do{
-        fgets(&input,2,stdin);
-        fflush(stdin);
-        number_of_games = strtol(&input,NULL,10);
-        if(number_of_games % 2 == 0)
-            printf("Please enter an odd number of games\n");
-    }while(number_of_games % 2 == 0);
-    return number_of_games;
-}
-
 int select_side(struct player players[]){
     int decision = 0;
     char input_number;
