@@ -10,6 +10,11 @@ void play_connect_4(struct player players[]){
     int max_moves = NO_OF_ROWS*NO_OF_COL;
     int moves_made;
 
+    int players_turn = select_side(players, play_type[0]);
+    if(players_turn == 1){
+        swap_type_array(play_type);
+    }
+
     while(games_played < number_of_games){
         gameStatus = CONTINUE;
         moves_made = 0;
@@ -23,6 +28,4 @@ void play_connect_4(struct player players[]){
         }
         games_played++;
     }
-
-
 }
