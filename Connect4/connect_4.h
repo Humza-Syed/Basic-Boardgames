@@ -4,7 +4,6 @@
 #endif //BASIC_BOARDGAMES_CONNECT_4_H
 
 #include "../universal_definitions.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
+
+#define NO_OF_ROWS 6
+#define NO_OF_COL 7
