@@ -1,7 +1,7 @@
 #include "tic_tac_toe.h"
 
 void play_tic_tac_toe(struct player players[]){
-    char board[BOARD_DIMENSION][BOARD_DIMENSION];
+    char **board = (char **)malloc(sizeof(char *));
     char play_type[] = {'X','O'};
     int player_scores[2] = {0,0};
     int number_of_games = set_number_of_games();
@@ -14,11 +14,11 @@ void play_tic_tac_toe(struct player players[]){
     }
 
     while(games_played < number_of_games){
-        initialise_board(board);
+        initialise_board(board,BOARD_DIMENSION,BOARD_DIMENSION);
         gameStatus = CONTINUE;
         printf("Game %d\n_____________\n",games_played++);
         printf("%s (%c) %d-%d %s (%c)\n",players[0].player_name,play_type[0],player_scores[0],player_scores[1],players[1].player_name,play_type[1]);
-        print_board(board);
+        print_board(board,BOARD_DIMENSION,BOARD_DIMENSION);
 
         while(gameStatus == CONTINUE){
             gameStatus = make_move(board,play_type[players_turn],&number_of_moves_made);
@@ -89,25 +89,7 @@ int select_side(struct player players[]){
     return --decision;
 }
 
-void initialise_board(char board[][BOARD_DIMENSION]){
-   for(int i = 0; i < BOARD_DIMENSION; i++){
-       for(int j = 0; j < BOARD_DIMENSION; j++){
-            board[i][j] = '-';
-       }
-   }
-}
-
-void print_board(char board[][3]){
-   for(int i = 0; i < BOARD_DIMENSION; i++){
-       printf("|");
-       for(int j = 0; j < BOARD_DIMENSION; j++){
-           printf(" %c |",board[i][j]);
-       }
-       printf("\n");
-   }
-}
-
-enum STATUS make_move(char board[][BOARD_DIMENSION], char player_type,int* number_of_moves_made){
+enum STATUS make_move(char **board, char player_type,int* number_of_moves_made){
     int x = -1,y = -1;
     char user_input;
     do{
@@ -129,7 +111,7 @@ enum STATUS make_move(char board[][BOARD_DIMENSION], char player_type,int* numbe
 
     board[x][y] = player_type;
     *number_of_moves_made = *number_of_moves_made + 1;
-    print_board(board);
+    print_board(board,BOARD_DIMENSION,BOARD_DIMENSION);
 
     if(*number_of_moves_made > (BOARD_SIZE/2)){
         if(game_is_won(board,x,y))
@@ -143,7 +125,7 @@ enum STATUS make_move(char board[][BOARD_DIMENSION], char player_type,int* numbe
 
 }
 
-bool is_valid_move(int* x,int* y,char board[][BOARD_DIMENSION]){
+bool is_valid_move(int* x,int* y,char **board){
     if(board[*x][*y] == '-')
         return true;
 
@@ -153,7 +135,7 @@ bool is_valid_move(int* x,int* y,char board[][BOARD_DIMENSION]){
     return false;
 }
 
-bool game_is_won(char board[][BOARD_DIMENSION], int x, int y){
+bool game_is_won(char **board, int x, int y){
     if(board[x][0] != '-' && board[x][0] == board[x][1] && board[x][1] == board[x][2])
         return true;
     else if(board[0][y] != '-' && board[0][y] == board[1][y] && board[1][y] == board[2][y])
