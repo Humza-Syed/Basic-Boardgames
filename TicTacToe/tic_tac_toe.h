@@ -11,8 +11,8 @@
 enum type {X,Y};
 
 enum STATUS make_move(char **board, char player_type, int* number_of_moves_made);
-int select_side(struct player players[]);
+
 void swap_sides();
-void swap_type_array(char type_array[]);
+
 bool is_valid_move(int* x,int* y,char **board);
 bool game_is_won(char **board, int x, int y);

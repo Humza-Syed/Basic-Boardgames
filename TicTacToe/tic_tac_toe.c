@@ -8,7 +8,7 @@ void play_tic_tac_toe(struct player players[]){
     int games_played = 0;
     int number_of_moves_made = 0;
 
-    int players_turn = select_side(players);
+    int players_turn = select_side(players, play_type[0]);
     if(players_turn == 1){
         swap_type_array(play_type);
     }
@@ -60,19 +60,6 @@ void play_tic_tac_toe(struct player players[]){
         printf("Series was a draw\n");
     }
 
-}
-
-int select_side(struct player players[]){
-    int decision = 0;
-    char input_number;
-    printf("Please enter which player will start as 'X'.\nPlayers will swap in each successive game\nPlease enter the corresponding number\n1.%s\n2.%s",players[0].player_name,players[1].player_name);
-    while(decision < 1 || decision > 2){
-        fgets(&input_number,2,stdin);
-        fflush(stdin);
-        decision = strtol(&input_number,NULL,10);
-    }
-
-    return --decision;
 }
 
 enum STATUS make_move(char **board, char player_type,int* number_of_moves_made){
@@ -135,10 +122,4 @@ bool game_is_won(char **board, int x, int y){
     }
 
     return false;
-}
-
-void swap_type_array(char type_array[]){
-    char temp = type_array[0];
-    type_array[0] = type_array[1];
-    type_array[1] = temp;
 }
