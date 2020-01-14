@@ -31,8 +31,10 @@ int main() {
             case(2) :
                 printf("Player wants to play: \"Connect 4 \"\n");
                 play_connect_4(players);
+                break;
             case(3) :
                 printf("Player wants to play: \"Mastermind\"\n");
+                break;
             default :
                 exit(0);
         }
