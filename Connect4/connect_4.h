@@ -11,4 +11,6 @@
 
 enum STATUS move_c4(char **board, char play_type, int *moves_made);
 bool valid_move_c4(char **board, int *col);
-bool game_is_won_c4(char **board, int *col);
+bool game_is_won_c4(char **board, int row , int col);
+bool check_horizontal(char **board, int row, int col);
+bool check_diagonals(char **board, int row, int col);

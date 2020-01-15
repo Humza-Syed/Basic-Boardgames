@@ -23,13 +23,14 @@ void play_connect_4(struct player players[]){
                 player_scores[0],player_scores[1],players[1].player_name,play_type[1]);
         print_board(board,NO_OF_ROWS,NO_OF_COL);
         while(gameStatus == CONTINUE){
-            move_c4(board,play_type[players_turn],&moves_made);
+            gameStatus = move_c4(board,play_type[players_turn],&moves_made);
             if(players_turn == 1)
                 players_turn = 0;
             else
                 players_turn = 1;
         }
 
+        printf("Game is won\n");
         if(gameStatus == WON){
             if(players_turn == 1)
                 player_scores[0]++;
@@ -56,7 +57,8 @@ enum STATUS move_c4(char **board, char player_type, int *moves_made){
     char user_input;
 
     do{
-        while(column < 0 || column > 3){
+        printf("Please enter the column you wish to play\n");
+        while(column < 0 || column > 7){
             scanf("%c",&user_input);
             fflush(stdin);
             column = strtol(&user_input, NULL, 10);
@@ -64,9 +66,11 @@ enum STATUS move_c4(char **board, char player_type, int *moves_made){
         }
     }while(!valid_move_c4(board,&column));
 
+    int row = 0;
     for(int i = NO_OF_ROWS-1;i >= 0;i--){
         if(board[i][column] == '-'){
             board[i][column] = player_type;
+            row = i;
             break;
         }
     }
@@ -74,13 +78,14 @@ enum STATUS move_c4(char **board, char player_type, int *moves_made){
     print_board(board,NO_OF_ROWS,NO_OF_COL);
 
     if(*moves_made >= 7){
-        if(game_is_won_c4(board,&column))
+        if(game_is_won_c4(board,row,column))
             return WON;
         else if(*moves_made == MAX_MOVES)
             return DRAW;
         else
             return CONTINUE;
-    }
+    }else
+        return CONTINUE;
 }
 
 bool valid_move_c4(char **board, int *column){
@@ -92,6 +97,44 @@ bool valid_move_c4(char **board, int *column){
     return false;
 }
 
-bool game_is_won_c4(char **board, int *col){
+bool game_is_won_c4(char **board, int row, int col){
+    if(row <= 2 && board[row][col] == board[row+1][col] && board[row+1][col] == board[row+2][col] && board[row+2][col] == board[row+3][col])
+        return true;
+    else if(check_horizontal(board,row,col))
+        return true;
+    else
+        return check_diagonals(board,row,col);
+}
+
+bool check_horizontal(char **board, int row, int col){
+    int i = col, j = col,colour_match = 1;
+    bool check_right = false, check_left = false;
+    while(!check_left || !check_right){
+        if(!check_left){
+            i--;
+            if(i < 0)
+                check_left = true;
+            else if(board[row][i] == board[row][col])
+                colour_match++;
+            else
+                check_left = true;
+        }
+        if(!check_right){
+            j++;
+            if(j >= NO_OF_COL)
+                check_right = true;
+            else if(board[row][j] == board[row][col])
+                colour_match++;
+            else
+                check_right = true;
+        }
+
+        if(colour_match >= 4)
+            return true;
+    }
+    return false;
+}
+
+bool check_diagonals(char **board, int row, int col){
     return false;
 }
