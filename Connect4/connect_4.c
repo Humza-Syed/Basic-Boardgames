@@ -29,6 +29,24 @@ void play_connect_4(struct player players[]){
             else
                 players_turn = 1;
         }
+
+        if(gameStatus == WON){
+            if(players_turn == 1)
+                player_scores[0]++;
+            else
+                player_scores[1]++;
+        }
+        games_played++;
+
+        if((player_scores[0]  || player_scores[1]) > number_of_games/2)
+            break;
+        else{
+            swap_type_array(play_type);
+            if(play_type[0] == 'X')
+                players_turn = 0;
+            else
+                players_turn = 1;
+        }
         games_played++;
     }
 }
