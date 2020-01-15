@@ -7,3 +7,7 @@
 
 #define NO_OF_ROWS 6
 #define NO_OF_COL 7
+
+enum STATUS move_c4(char **board, char play_type, int *moves_made);
+bool valid_move_c4(int *col);
+bool game_is_won_c4(char **board, int *col);
