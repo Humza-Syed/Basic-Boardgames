@@ -62,7 +62,7 @@ void play_tic_tac_toe(struct player players[]){
 
 }
 
-enum STATUS make_move(char **board, char player_type,int* number_of_moves_made){
+enum STATUS make_move(char **board, char player_type,int *number_of_moves_made){
     int x = -1,y = -1;
     char user_input;
     do{
@@ -98,7 +98,7 @@ enum STATUS make_move(char **board, char player_type,int* number_of_moves_made){
 
 }
 
-bool is_valid_move(int* x,int* y,char **board){
+bool is_valid_move(int *x,int *y,char **board){
     if(board[*x][*y] == '-')
         return true;
 
