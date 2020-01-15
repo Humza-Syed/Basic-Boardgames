@@ -44,13 +44,14 @@ enum STATUS move_c4(char **board, char player_type, int *moves_made){
             column = strtol(&user_input, NULL, 10);
             column--;
         }
-    }while(!valid_move_c4(&column));
+    }while(!valid_move_c4(board,&column));
 
-    for(int i = NO_OF_ROWS;i >= 0;i--){
-        if(board[i][column] == '-')
+    for(int i = NO_OF_ROWS-1;i >= 0;i--){
+        if(board[i][column] == '-'){
             board[i][column] = player_type;
+            break;
+        }
     }
-
     *moves_made = *moves_made+1;
     print_board(board,NO_OF_ROWS,NO_OF_COL);
 
@@ -64,6 +65,15 @@ enum STATUS move_c4(char **board, char player_type, int *moves_made){
     }
 }
 
-bool valid_move_c4(int *column){
+bool valid_move_c4(char **board, int *column){
+    if(board[0][*column] == '-')
+        return true;
+
+    *column = -1;
+    printf("Please enter a valid column\n");
+    return false;
+}
+
+bool game_is_won_c4(char **board, int *col){
     return false;
 }
